@@ -34,6 +34,16 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log("User logged in:" + user.email);
+  } else {
+    // No user is signed in.
+    console.log("No user logged in");
+  }
+});
+
 ////////////
 
 class Home extends Component {

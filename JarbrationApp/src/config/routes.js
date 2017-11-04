@@ -8,10 +8,12 @@ const LoginScreen = require('../screens/Login.js');
 const SignupScreen = require('../screens/Signup.js');
 const ForgotPasswordScreen = require('../screens/ForgotPassword.js');
 const HomeScreen = require('../screens/Home.js');
+const AccountScreen = require('../screens/Account.js');
 
 // Set up tab navigator with home screen
 export const Tabs = TabNavigator ({
   Home: { screen: HomeScreen },
+  Profile: { screen: AccountScreen },
 });
 
 // Set landing screen as the root modal
