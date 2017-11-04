@@ -32,7 +32,7 @@ class Login extends Component {
 
           <Label>Email Address</Label>
 
-          <Input 
+          <Input
             value={this.state.email}
             onChangeText={email => this.setState({ email })} />
 
@@ -65,7 +65,7 @@ class Login extends Component {
         <Text>Skip</Text>
         </Button>
 
-      </Content>            
+      </Content>
       </Container>
     )
   }
@@ -73,7 +73,7 @@ class Login extends Component {
   // Set the defualt state
   constructor(props) {
     super(props);
-  
+
     this.state = {
       email: '',
       password: ''
@@ -82,7 +82,15 @@ class Login extends Component {
 
   // Log in method
   login(){
-    firebase.auth().signInWithEmailAndPassword( this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword( this.state.email, this.state.password)
+
+    // Navigate to the homescreen
+    .then(() => {
+      this.props.navigation.navigate('Home');
+    })
+
+    // Display error message
+    .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;

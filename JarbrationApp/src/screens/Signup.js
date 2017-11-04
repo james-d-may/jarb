@@ -27,7 +27,7 @@ class Signup extends Component {
 
 			        	<Label>Email Address</Label>
 
-			        	<Input 
+			        	<Input
 			        	value={this.state.email}
 	                	onChangeText={email => this.setState({ email })} />
 
@@ -52,7 +52,7 @@ class Signup extends Component {
 	          <Text>Go Back</Text>
 	          </Button>
 
-		    </Content>            
+		    </Content>
 	        </Container>
 		)
 	}
@@ -60,7 +60,7 @@ class Signup extends Component {
 	// Set the defualt state
 	constructor(props) {
 	  super(props);
-	
+
 	  this.state = {
 	  	email: '',
 	  	password: ''
@@ -71,10 +71,16 @@ class Signup extends Component {
 	signup(){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
 
+		// Send verification email
 		.then(function(user){
 			user.sendEmailVerification();
 		})
 
+		.then(() => {
+			this.props.navigation.navigate('Home');
+		})
+
+		// Display error message
 		.catch(function(error) {
 		  // Handle Errors here.
 		  var errorCode = error.code;
