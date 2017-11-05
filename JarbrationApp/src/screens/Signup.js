@@ -18,6 +18,19 @@ import { Container, Content, Form, Item, Label, Input, Button, Text } from 'nati
 
 class Signup extends Component {
 
+	constructor(props) {
+		super(props);
+
+		// Realtime database listener
+		this.usersRef = firebase.database().ref().child('users');
+
+		// Set default state
+		this.state = {
+			email: '',
+			password: ''
+		};
+	}
+
 	render() {
 		return (
 			<Container>
@@ -57,25 +70,17 @@ class Signup extends Component {
 		)
 	}
 
-	// Set the defualt state
-	constructor(props) {
-	  super(props);
-
-	  this.state = {
-	  	email: '',
-	  	password: ''
-	  };
-	}
-
 	// Sign Up method
 	signup(){
 		firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
 
-		// Send verification email
+		// Enter user email into database
 		.then(function(user){
-			user.sendEmailVerification();
+			console.log("this is the users email:" + user.email)
+			firebase.database().ref().child('users').push({ email: user.email, name: 'test'});
 		})
 
+		// Navigate to home
 		.then(() => {
 			this.props.navigation.navigate('Home');
 		})

@@ -25,26 +25,9 @@ const {
   Navigation
 } = ReactNative;
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBMg9XkL5PIBZJi3leGo19JgMreI8ZGbCI",
-  authDomain: "jarbration.firebaseapp.com",
-  databaseURL: "https://jarbration.firebaseio.com",
-  storageBucket: "jarbration.appspot.com"
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+/////
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    console.log("User logged in:" + user.email);
-  } else {
-    // No user is signed in.
-    console.log("No user logged in");
-  }
-});
-
-////////////
+/////
 
 class Home extends Component {
 
@@ -53,10 +36,10 @@ class Home extends Component {
     // Set up data source and start state
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([{ title: 'Enter your first item' }]),
+      dataSource: ds.cloneWithRows([{ title: 'Enter your first jarb' }]),
     };
     // Realtime database listener
-    this.itemsRef = firebaseApp.database().ref().child('items');
+    this.itemsRef = firebase.database().ref().child('another thing');
   }
 
   componentDidMount() {
