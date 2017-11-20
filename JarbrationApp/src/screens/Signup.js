@@ -26,6 +26,7 @@ class Signup extends Component {
 
 		// Set default state
 		this.state = {
+			name: '',
 			email: '',
 			password: ''
 		};
@@ -36,7 +37,16 @@ class Signup extends Component {
 			<Container>
 			<Content>
 	          <Form>
-		            <Item floatingLabel>
+								<Item floatingLabel>
+
+								<Label>Name</Label>
+
+								<Input
+								value={this.state.name}
+										onChangeText={name => this.setState({ name })} />
+
+								</Item>
+								<Item floatingLabel>
 
 			        	<Label>Email Address</Label>
 
@@ -72,12 +82,14 @@ class Signup extends Component {
 
 	// Sign Up method
 	signup(){
+
 		firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
 
 		// Enter user email into database
-		.then(function(user){
+		.then((user) => {
 			console.log("this is the users email:" + user.email)
-			firebase.database().ref().child('users').push({ email: user.email, name: 'test'});
+			console.log("this is the users name:" + this.state.name)
+			firebase.database().ref().child('users').push({ email: user.email, name: this.state.name});
 		})
 
 		// Navigate to home
