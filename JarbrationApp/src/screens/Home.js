@@ -36,7 +36,7 @@ class Home extends Component {
     // Set up data source and start state
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([{ title: 'Enter your first jarb' }]),
+      dataSource: ds.cloneWithRows([{ content: 'Enter your first jarb' }]),
     };
     // Realtime database listener
     this.itemsRef = firebase.database().ref().child('another thing');
@@ -75,7 +75,7 @@ class Home extends Component {
         {
           text: 'Add',
           onPress: (text) => {
-            this.itemsRef.push({ title: text })
+            this.itemsRef.push({ content: text, timestamp: firebase.database.ServerValue.TIMESTAMP, author: firebase.auth().currentUser.uid })
           }
         },
       ],
@@ -112,7 +112,7 @@ class Home extends Component {
       var items = [];
       snap.forEach((child) => {
         items.push({
-          title: child.val().title,
+          title: child.val().content,
           _key: child.key
         });
         console.log(items);
